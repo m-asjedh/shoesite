@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
+  const location = useLocation();
+
+  const pathsWithoutNavbar = ["/login", "/register"];
+  const pathsWithoutFooter = ["/login", "/register", "/cart"];
+
+  const displayNavbar = !pathsWithoutNavbar.includes(location.pathname);
+  const displayFooter = !pathsWithoutFooter.includes(location.pathname);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {displayNavbar && <Navbar />}
+      <Outlet />
+      {displayFooter && <Footer />}
     </div>
   );
-}
+};
 
 export default App;
